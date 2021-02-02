@@ -1,0 +1,64 @@
+# Prettier Options:
+# https://prettier.io/docs/en/options.html
+
+# Specify the line length that the printer will wrap on. (default: 80)
+# printWidth: 80
+
+# Specify the number of spaces per indentation-level. (default: 2)
+# tabWidth: 2
+
+# Indent lines with tabs instead of spaces. (default: false) -- tabs allow people to choose their tab width in the editor
+useTabs: true
+
+# Print semicolons at the ends of statements. (default: true) -- semicolons are not really necessary when using prettier
+semi: false
+
+# Use single quotes instead of double quotes. (default: false)
+# singleQuote: false
+
+# Change when properties in objects are quoted. (default: "as-needed")
+# quoteProps: "as-needed"
+
+# Use single quotes instead of double quotes in JSX. (default: false)
+# jsxSingleQuote: false
+
+# Print trailing commas wherever possible when multi-line. (default: "es5") -- code is being compiled with babel, no point in not enabling this everywhere
+trailingComma: "all"
+
+# Print spaces between brackets in object literals. (default: true)
+# bracketSpacing: true
+
+# Put the > of a multi-line JSX element at the end of the last line instead of being alone on the next line. (default: false)
+# jsxBracketSameLine: false
+
+# Include parentheses around a sole arrow function parameter. (default: "always")
+# arrowParens: "always"
+
+# Require /* @prettier/format */ pragma (default: false)
+# requirePragma: false
+
+# Insert /* @format */ pragma (default: false)
+# insertPragma: false
+
+# Wrap prose if it exceeds the print width. (default: "preserve") -- reading markdown shouldn't be annoying when not rendered
+proseWrap: "always"
+
+# Specify the global whitespace sensitivity for HTML files. (default: "css")
+# htmlWhitespaceSensitivity: "css"
+
+# Whether or not to indent the code inside <script> and <style> tags in Vue files. (default: false)
+# vueIndentScriptAndStyle: false
+
+# Line endings (default: "lf")
+# endOfLine: "lf"
+
+overrides:
+  - files:
+      # yaml is dumb about whitespace
+      - "*.{yaml,yml}"
+      # don't fight most JSON tools about tabs
+      - "*.json"
+      # github presents tabs terribly for markdown files
+      - "*.md"
+    options:
+      useTabs: false

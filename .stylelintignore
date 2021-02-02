@@ -1,0 +1,29 @@
+# Stylelint is setup to run on everything by default to ensure maximum stylishness
+# However, Stylelint doesn't support every file type, and some files dont need to
+# be stylish. So they are "ignored" using glob patterns in this file in a similar
+# fashion to .gitignore
+
+# third party deps dont need linting
+node_modules
+
+# nor do built things
+dist
+.temp
+
+# tests
+.nyc_output
+coverage
+
+# these things are just not supported by stylelint
+*.json
+*.md
+*.yml
+*.yaml
+.*ignore
+.*config
+.*rc
+*.png
+*.svg
+*.jpeg
+*.jpg
+*.ico

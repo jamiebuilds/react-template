@@ -1,0 +1,32 @@
+# ESLint is setup to run on everything by default to ensure maximum lintiness
+# However, ESLint doesn't support every file type, and some files dont need to
+# be linted. So they are "ignored" using glob patterns in this file in a similar
+# fashion to .gitignore
+
+# third party deps dont need linting
+node_modules
+
+# nor do built things
+dist
+.temp
+
+# tests
+.nyc_output
+coverage
+
+# these things are just not supported by eslint
+*.json
+*.md
+*.css
+*.html
+*.yml
+*.yaml
+.*ignore
+.*config
+.*rc
+*.png
+*.svg
+*.jpeg
+*.jpg
+*.ico
+LICENSE

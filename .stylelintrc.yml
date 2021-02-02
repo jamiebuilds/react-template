@@ -1,0 +1,54 @@
+extends:
+  - "stylelint-config-standard"
+  - "stylelint-config-recess-order"
+  - "stylelint-config-prettier"
+  - "stylelint-a11y/recommended"
+plugins:
+  - "stylelint-value-no-unknown-custom-properties"
+rules:
+  unit-blacklist:
+    # no physical units (besides px)
+    - "cm"
+    - "mm"
+    - "Q"
+    - "in"
+    - "pc"
+    - "pt"
+    # no font-relative units
+    - "em"
+    - "ex"
+    - "ch"
+    - "rem"
+    - "lh"
+    # no viewport relative units
+    - "vw"
+    - "vh"
+    - "vmin"
+    - "vmax"
+    # use milliseconds for everything
+    - "s"
+  function-disallowed-list:
+    # Don't use attributes as values
+    - "attr"
+  # No need to manually insert vendor prefixes
+  value-no-vendor-prefix: true
+  property-no-vendor-prefix: true
+  # Don't add a unit where you don't need it
+  length-zero-no-unit: true
+  # Never use color names
+  color-named: "never"
+  # Use the modern syntax
+  color-function-notation: "modern"
+  # Use the same notation for alpha values
+  alpha-value-notation: "percentage"
+  # Use the same notation for font-weight values
+  font-weight-notation: "numeric"
+  # This just breaks on any interpolation
+  function-name-case: null
+  # We use font families from the theme
+  font-family-no-missing-generic-family-keyword: null
+  # only allow our theme variables
+  # csstools/value-no-unknown-custom-properties:
+  #   - true
+  #   - importFrom:
+  #       - "./gt-app/system/theme.css"

@@ -1,0 +1,389 @@
+parser: "@typescript-eslint/parser"
+parserOptions:
+  project: "./tsconfig.json"
+plugins:
+  - "@typescript-eslint"
+  - "react"
+  - "react-hooks"
+  - "import"
+  - "jsx-a11y"
+  - "no-useless-const"
+  - "unicorn"
+  - "destructuring"
+  - "promise"
+  - "import-helpers"
+  - "formatjs"
+  - "@emotion"
+  - "optimize-regex"
+  - "tsdoc"
+  - "react-perf"
+  - "security"
+  - "compat"
+  - "local-rules"
+extends:
+  - "eslint:recommended"
+  - "plugin:@typescript-eslint/eslint-recommended"
+  - "plugin:@typescript-eslint/recommended"
+  - "plugin:react/recommended"
+  - "plugin:react-hooks/recommended"
+  - "plugin:jsx-a11y/recommended"
+  - "plugin:import/errors"
+  - "plugin:import/warnings"
+  - "plugin:import/typescript"
+  - "prettier"
+  - "prettier/@typescript-eslint"
+  - "prettier/react"
+  - "plugin:unicorn/recommended"
+  - "plugin:react-perf/recommended"
+  - "plugin:security/recommended"
+  - "plugin:compat/recommended"
+env:
+  node: true
+  browser: true
+settings:
+  react:
+    version: "detect"
+  import/extensions:
+    - ".jpg"
+  import/parsers:
+    "@typescript-eslint/parser":
+      - ".ts"
+      - ".tsx"
+  import/resolver:
+    typescript:
+      project: "tsconfig.json"
+
+reportUnusedDisableDirectives: true
+rules:
+  eqeqeq:
+    - "error"
+    - "always"
+    - "null": "never"
+  # No console
+  no-console: "error"
+  # We use TypeScript
+  react/prop-types: "off"
+  # This rule is silly
+  prefer-const: "off"
+  # `const` doesn't accomplish anything. Let's enforce immutability elsewhere
+  no-useless-const/no-useless-const: "error"
+  # Require functions that need names to have names
+  func-names: ["error", "as-needed"]
+  # Don't export anything that doesn't have a name, it makes callstacks confusing
+  import/no-anonymous-default-export: "error"
+  # <>...</> is currently unsupported by microbundle
+  react/jsx-fragments:
+    - "error"
+    - "syntax"
+  # One-letter identifiers are harder to understand.
+  # For example: `e` may mean "event", "error", "element", or "entity"
+  id-length:
+    - "error"
+    - min: 2
+      exceptions:
+        - "x"
+        - "y"
+  # Making code super condense rarely makes it easier to read
+  curly:
+    - "error"
+    - "all"
+  # Enforce filename casing (also see overrides)
+  unicorn/filename-case:
+    - "error"
+    - cases:
+        camelCase: true
+        pascalCase: true
+  # Trying it
+  unicorn/no-null: "off"
+  # TypeScript isn't happy with array spread in many cases
+  unicorn/prefer-spread: "off"
+  # Write words out instead of abbreviating them
+  unicorn/prevent-abbreviations:
+    - "error"
+    - whitelist:
+        # Allow React terms
+        "Props": true
+        "props": true
+        "ref": true
+        "Ref": true
+        "params": true
+        "Params": true
+  # array.reduce() is confusing, use for loops
+  unicorn/no-reduce: "error"
+  # Function signatures are complex enough, destructuring makes them unreadable
+  destructuring/in-params:
+    - "error"
+    - "max-params": 0
+  destructuring/in-methods-params:
+    - "error"
+  # Use a consistent function syntax
+  react/function-component-definition:
+    - "error"
+    - namedComponents: "function-declaration"
+      unnamedComponent: "function-declaration"
+  # Require buttons to have a type prop, buttons are "submit" by default
+  react/button-has-type: "error"
+  # Don't destructure when you don't need to
+  react/destructuring-assignment:
+    - "error"
+    - "never"
+  # Indexes make bad keys
+  react/no-array-index-key: "error"
+  # findDOMNode is deprecated
+  react/no-find-dom-node: "error"
+  # React 17 Babel transform does not require React to be in scope
+  react/react-in-jsx-scope: "off"
+  # Prefer await
+  promise/prefer-await-to-then: "error"
+  # Make types explicit
+  "@typescript-eslint/explicit-function-return-type": "error"
+  "@typescript-eslint/explicit-module-boundary-types": "error"
+  # Always await promises
+  "@typescript-eslint/no-floating-promises": "error"
+  # Protect against unnecessary logic
+  "@typescript-eslint/no-unnecessary-condition": "error"
+  # Be explicit about if-statements, ternaries, etc
+  "@typescript-eslint/strict-boolean-expressions": "error"
+  # Don't allow empty interfaces unless they are extending something
+  "@typescript-eslint/no-empty-interface":
+    - "error"
+    - allowSingleExtends: true
+  # Prefer `T[]` when its a simple type
+  "@typescript-eslint/array-type":
+    - "error"
+    - default: "array-simple"
+  # Prefer `v as T` assertion syntax (its the only allowed option in TSX files)
+  "@typescript-eslint/consistent-type-assertions":
+    - "error"
+    - assertionStyle: "as"
+      # Ban casting objects inline (this often gets abused for objects in expression positions)
+      objectLiteralTypeAssertions: "never"
+  # Prefer interfaces over type aliases
+  "@typescript-eslint/consistent-type-definitions":
+    - "error"
+    - "interface"
+  # Prefer methods over properties (their overloading syntax is easier)
+  "@typescript-eslint/method-signature-style":
+    - "error"
+    - "method"
+  # Enforce .toString() is only called when actually useful
+  "@typescript-eslint/no-base-to-string": "error"
+  # Only `await` something with `.then()`
+  "@typescript-eslint/await-thenable": "error"
+  # Only allow ts-expect-error
+  "@typescript-eslint/ban-ts-comment":
+    - "error"
+    - "ts-expect-error": "allow-with-description"
+      minimumDescriptionLength: 10
+  # Don't allow non-null assertion `value!`
+  "@typescript-eslint/no-non-null-assertion": "error"
+  # Disallow non-standard TS parameter property syntax
+  "@typescript-eslint/no-parameter-properties": "error"
+  # Disallow all require imports
+  "@typescript-eslint/no-require-imports": "error"
+  # Throwing literals is bad
+  "@typescript-eslint/no-throw-literal": "error"
+  # Booleans are already booleans
+  "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error"
+  # Prefer for...of if we don't need the index
+  "@typescript-eslint/prefer-for-of": "error"
+  # Prefer .includes() over .indexOf()
+  "@typescript-eslint/prefer-includes": "error"
+  # Namespaces are the new modules
+  "@typescript-eslint/prefer-namespace-keyword": "error"
+  # ?? is better than ||
+  "@typescript-eslint/prefer-nullish-coalescing": "error"
+  # Prefer obj?.prop over obj && obj.prop
+  "@typescript-eslint/prefer-optional-chain": "error"
+  # If used it should be used correctly
+  "@typescript-eslint/prefer-reduce-type-parameter": "error"
+  # Better to use .startsWith()/.endsWith()
+  "@typescript-eslint/prefer-string-starts-ends-with": "error"
+  # For the auto-fixing
+  "@typescript-eslint/prefer-ts-expect-error": "error"
+  # Array sorting is unreliable without a comparator
+  "@typescript-eslint/require-array-sort-compare": "error"
+  # Exhaustiveness checking in switch with union type
+  "@typescript-eslint/switch-exhaustiveness-check": "error"
+  # I want to limit enums as much as possible
+  "@typescript-eslint/prefer-literal-enum-member": "error"
+  "@typescript-eslint/prefer-enum-initializers": "error"
+  # Keep the type in its simplest form until you need something more.
+  "@typescript-eslint/prefer-function-type": "error"
+  # Always use async
+  "@typescript-eslint/promise-function-async": "error"
+  # any and unknown are unnecesary in type constraints
+  "@typescript-eslint/no-unnecessary-type-constraint": "error"
+  # don't have extra type parameters
+  "@typescript-eslint/no-unnecessary-type-arguments": "error"
+  # avoid classes whenever you can
+  "@typescript-eslint/no-extraneous-class": "error"
+  # void !== undefined, use both appropriately
+  "@typescript-eslint/no-invalid-void-type": "error"
+  # Use the right data structure
+  "@typescript-eslint/no-dynamic-delete": "error"
+  # Prefer Record<K, V>, it's easier to read
+  "@typescript-eslint/consistent-indexed-object-style":
+    - "error"
+    - "record"
+  # Make it clear when an expression doesn't return anything
+  "@typescript-eslint/no-confusing-void-expression": "error"
+  # Use `import type` all the time
+  "@typescript-eslint/consistent-type-imports":
+    - "error"
+    - prefer: "type-imports"
+      disallowTypeAnnotations: true
+
+  # Enforce naming scheme
+  "@typescript-eslint/camelcase": "off"
+  "@typescript-eslint/naming-convention":
+    - "error"
+    - selector: "default"
+      format: ["camelCase"]
+    - selector: "variableLike"
+      format: ["camelCase", "PascalCase"]
+    - selector: "typeLike"
+      format: ["PascalCase"]
+    - selector: enumMember
+      format: ["PascalCase"]
+    - selector: "property"
+      format: ["camelCase"]
+      leadingUnderscore: "allow"
+      filter:
+        regex: "^_id$"
+        match: true
+    - selector: "memberLike"
+      format: ["UPPER_CASE"]
+      filter:
+        regex: "^NODE_ENV$"
+        match: true
+  "@typescript-eslint/member-ordering":
+    - "error"
+    - "default":
+        - "field"
+        - "signature"
+        - "constructor"
+        - "method"
+
+  # Make sure imports are written before any other statements
+  import/first: "error"
+  # This is a good default for most bundlers
+  import/extensions:
+    - "error"
+    - "always"
+    - js: "never"
+      ts: "never"
+      tsx: "never"
+  # Just a style thing that Prettier doesn't enforce
+  import/newline-after-import: "error"
+  # For the purposes of consistency (replace with import/no-default-export if you want the inverse)
+  import/prefer-default-export: "error"
+  # Will flag things used for side effects (which are bad)
+  import/no-unassigned-import:
+    - "error"
+    - allow:
+        - "**/*.css"
+  # Prevents `import { default as name }`
+  import/no-named-default: "error"
+  # Prevents importing things not installed in package.json
+  import/no-extraneous-dependencies: "error"
+  # Prevents modules without exports or with exports that are never imported
+  import/no-unused-modules: "error"
+  # Ban commonjs
+  import/no-commonjs: "error"
+  # Ban amd
+  import/no-amd: "error"
+  # Enforce a loose order (auto-fixable)
+  import-helpers/order-imports:
+    - "error"
+    - newlinesBetween: "never"
+      alphabetize:
+        order: "asc"
+        # caseInsensitive: true
+      groups:
+        # Putting React/Emotion first is nice cause it gives you a hint the current file is a React component/hook/etc
+        - "/^react$/"
+        - "/^emotion$/"
+        - "/^@emotion\\//"
+        - "module"
+        - "sibling"
+        - "parent"
+  no-restricted-imports:
+    - "error"
+    - paths:
+        - name: "@emotion/react"
+          importNames:
+            - "styled"
+            - "cx"
+          message: "Prefer using the css helper from @emotion/react"
+  # Nested plurals are hard to translate across languages so some translation vendors don't allow it.
+  formatjs/no-multiple-plurals: "error"
+  # Offset has complicated logic implication so some translation vendors don't allow it.
+  formatjs/no-offset: "error"
+  # no-multiple-whitespaces
+  formatjs/no-multiple-whitespaces: "error"
+  # Certain translation vendors cannot handle emojis / Cross-platform encoding for emojis are faulty.
+  formatjs/no-emoji: "error"
+  # Enforce all parameters are provided (TODO: Improve plugin to allow allowlist)
+  formatjs/enforce-placeholders: "off"
+  # Enforce always use defaultMessage
+  formatjs/enforce-default-message: "error"
+  # Enforce always use description
+  formatjs/enforce-description: "error"
+  # Enforce never use id
+  formatjs/no-id: "error"
+  # enforce <FormattedMessage/> in JSX
+  "local-rules/enforce-formattedmessage-in-jsx": "error"
+  # don't use @emotion/css
+  "@emotion/no-vanilla": "error"
+  # don't use old package names
+  "@emotion/pkg-renaming": "error"
+  # use css`...` form
+  "@emotion/syntax-preference":
+    - "error"
+    - "string"
+  # enforce <div css={css``}/> over className
+  "local-rules/use-css-prop": "error"
+  # use optimized regex
+  "optimize-regex/optimize-regex": "error"
+  # use valid tsdoc syntax
+  "tsdoc/syntax": "error"
+
+overrides:
+  - files:
+      - "typings/*"
+    rules:
+      unicorn/filename-case: "off"
+  - files:
+      - "eslint-local-rules.js"
+      - ".eslint/*"
+    rules:
+      import/no-commonjs: "off"
+      unicorn/filename-case:
+        - "error"
+        - case: "kebabCase"
+      "@typescript-eslint/no-require-imports": "off"
+  # - files:
+  #     - "src/components/*"
+  #     - "src/schemas/*"
+  #     - "src/App.tsx"
+  #     - "example/App.js"
+  #   rules:
+  #     unicorn/filename-case:
+  #       - "error"
+  #       - case: "pascalCase"
+  # - files:
+  #     - "**/*.test.*"
+  #   rules:
+  #     unicorn/filename-case: "off"
+  # - files:
+  #     - "./src/theme.ts"
+  #   rules:
+  #     "@typescript-eslint/naming-convention":
+  #       - "error"
+  #       - selector: "default"
+  #         format: ["camelCase", "PascalCase"]
+  #       - selector: "variableLike"
+  #         format: ["camelCase", "PascalCase"]
+  #       - selector: "property"
+  #         format: ["UPPER_CASE"]

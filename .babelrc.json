@@ -1,0 +1,49 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false
+      }
+    ],
+    "@babel/preset-typescript",
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic",
+        "importSource": "@emotion/react",
+        "useBuiltIns": true,
+        "useSpread": true
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    [
+      "babel-plugin-react-intl",
+      {
+        "idInterpolationPattern": "[sha512:contenthash:base64:6]",
+        "extractFromFormatMessageCall": true,
+        "ast": true
+      }
+    ],
+    "@emotion/babel-plugin"
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        [
+          "@babel/preset-react",
+          {
+            "runtime": "automatic",
+            "importSource": "@emotion/react",
+            "useBuiltIns": true,
+            "useSpread": true,
+            "development": true
+          }
+        ]
+      ],
+      "plugins": ["react-refresh/babel"]
+    }
+  }
+}
